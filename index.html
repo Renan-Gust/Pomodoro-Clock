@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Pomodoro Timer</h1>
+        <div id="content">
+            <h3  class="session">Sessão</h3>
+            <div class="timer">
+                <div class="minutes">
+                    <p>00</p>
+                </div>
+                <div class="two-points">
+                    <p>:</p>
+                </div>
+                <div class="seconds">
+                    <p>00</p>
+                </div>
+            </div>
+            <div id="buttons">
+                <button class="pause" style="display: none;">Pausar</button>
+                <button class="start">Começar</button>
+                <button class="reset">Redefinir</button>
+            </div>
+        </div>
+
+        <footer>
+            <div class="lenght">
+                <div class="session-lenght">
+                    <h3>Duração da Sessão</h3>
+                    <div class="adjust-timer">
+                        <span onclick="addSessionValue()"><i class="fas fa-arrow-up" style="color: #fff;"></i></span>
+                        <input type="text" id="sessionValue" value="25" onkeypress="sessionValue()">
+                        <span onclick="decreaseSessionValue()"><i class="fas fa-arrow-down" style="color: #fff;"></i></span>
+                    </div>
+                </div>
+                <div class="break-lenght">
+                    <h3>Duração do Intervalo</h3>
+                    <div class="adjust-timer">
+                        <span onclick="addBreakValue()"><i class="fas fa-arrow-up" style="color: #fff;"></i></span>
+                        <input type="text" id="breakValue" value="5" onkeypress="breakValue()">
+                        <span onclick="decreaseBreakValue()"><i class="fas fa-arrow-down" style="color: #fff;"></i></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>   
+</body>
+    <script src="script.js"></script>
+</html>
