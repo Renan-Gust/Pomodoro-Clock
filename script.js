@@ -6,65 +6,23 @@ var breakLenght = document.querySelector("input#breakValue")
 var sessionLenght = document.querySelector("input#sessionValue")
 
 var clockMinutes;
-var clockSeconds = 60 
-
-function sessionValue() {
-    let sessionLenght = document.querySelector("input#sessionValue").value
-    timer.innerHTML = sessionLenght
-    clockMinutes = sessionLenght
-
-    clockSeconds = 60
-}
-/*
-function breakValue() {
-    let breakLenght = document.querySelector("input#breakValue").value    
-     clockMinutes = breakLenght
-
-     console.log(clockMinutes)
-    
-     clockSeconds = 60
-}
-*/
-window.addEventListener("load", sessionValue)
+var clockSeconds = 60
 
 var buttonStart = document.querySelector("#buttons button.start")
 var buttonReset = document.querySelector("#buttons button.reset")
-var buttonPause = document.querySelector("#buttons button.pause")
-var time;
+var stopwatchSession;
+var stopwatchBreak;
 
-buttonStart.addEventListener("click", () => {
-    time = setInterval(() => {
+buttonStart.addEventListener("click", function startTimer() {
+      clockMinutes = sessionLenght.value
+      minutes.innerHTML = sessionLenght.value
+
+     clockMinutes--
+     minutes.innerHTML = clockMinutes
+
+    stopwatchSession = setInterval(() => {
         clockSeconds--
         seconds.innerHTML = clockSeconds
-
-        //Intervalo de tempo
-        if(clockMinutes === 0 && clockSeconds === 0){        
-            clearInterval(time)
-
-            buttonPause.style.display = "inline"
-            buttonStart.style.display = "none"
-
-            setInterval(() => {
-                let breakLenght = document.querySelector("input#breakValue").value
-
-                minutes.innerHTML = breakLenght
-                seconds.innerHTML = clockSeconds
-
-                clockMinutes = breakLenght
-
-                clockSeconds--
-                seconds.innerHTML = clockSeconds    
-                
-                if(clockSeconds == 0){
-                    clockSeconds = 60
-                    clockMinutes--
-
-                    minutes.innerHTML = clockMinutes
-                    minutes = clockMinutes
-                       
-                }
-            }, 100);
-        }
 
         if(clockSeconds == 0){
             clockSeconds = 60
@@ -72,36 +30,90 @@ buttonStart.addEventListener("click", () => {
 
             minutes.innerHTML = clockMinutes
         }
-    }, 100);
 
-    buttonPause.style.display = "inline"
-    buttonStart.style.display = "none"
+        //Stopwatch has arrived zero
+        if(clockMinutes == -1){
+            clearInterval(stopwatchSession)
+            clockMinutes = 0
+            minutes.innerHTML = clockMinutes
+
+           sessionFinalized()
+        }
+
+    }, 1000);
+
+    buttonStart.disabled = true
+    buttonStart.classList.add("disabled")
 })
 
-buttonPause.addEventListener("click", () => {
-    clearInterval(time)
-
-    buttonPause.style.display = "none"
-    buttonStart.style.display = "inline"
-})
-
-buttonReset.addEventListener("click", () => {
+buttonReset.addEventListener("click", function resetTimer () {
     let sessionLenght = document.querySelector("input#sessionValue").value
     minutes.innerHTML = sessionLenght
     clockSeconds = 60
-
-    minutes.innerHTML = sessionLenght
     seconds.innerHTML = "00"
+    
+    clearInterval(stopwatchSession)
+    clearInterval(stopwatchBreak)
 
-    buttonPause.style.display = "none"
-    buttonStart.style.display = "inline"
-
-    clearInterval(time)
+    buttonStart.disabled = false
+    buttonStart.classList.remove("disabled")
 })
 
-//Session Length
+let audio = new Audio("notification.mp3")
+function sessionFinalized() {
+    audio.play()
+
+    setTimeout(() => {
+        startBreak()
+        alert("Hora do descanso")
+    }, 3000);
+}
+
+function breakFinalized() {
+    audio.play()
+
+    setTimeout(() => {
+        alert("Descanso finalizado")
+    }, 3000);
+
+    minutes.innerHTML = sessionLenght.value
+
+    buttonStart.disabled = false
+    buttonStart.classList.remove("disabled")
+}
+
+function startBreak() {
+    clockMinutes = breakLenght.value
+    minutes.innerHTML = breakLenght.value
+
+    clockMinutes--
+    minutes.innerHTML = clockMinutes
+
+    stopwatchBreak = setInterval(() => {
+        clockSeconds--
+        seconds.innerHTML = clockSeconds
+
+        if(clockSeconds == 0){
+            clockSeconds = 60
+            clockMinutes--
+
+            minutes.innerHTML = clockMinutes
+
+            //Stopwatch has arrived zero
+            if(clockMinutes == -1){
+                clearInterval(stopwatchBreak)
+                clockMinutes = 0
+                minutes.innerHTML = clockMinutes
+
+                breakFinalized()
+            }
+        }
+    }, 1000);
+}
+
+//Add value in the session input
 function addSessionValue() {
-   sessionLenght.value++
+    sessionLenght.value++
 
     minutes.innerHTML = sessionLenght.value
     clockMinutes = sessionLenght.value
@@ -114,11 +126,21 @@ function decreaseSessionValue() {
     clockMinutes = sessionLenght.value
 }
 
-//Break Length
+function AddSessionValuePerKey() {
+    let sessionLenght = document.querySelector("input#sessionValue").value
+    timer.innerHTML = sessionLenght
+}
+
+//Add value in the break input
 function addBreakValue() {
     breakLenght.value++
 }
 
 function decreaseBreakValue() {
     breakLenght.value--
+}
+
+function AddBreakValuePerKey() {
+    let breakLenght = document.querySelector("input#sessionValue").value
+    timer.innerHTML = breakLenght
 }

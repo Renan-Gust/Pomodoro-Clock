@@ -51,7 +51,12 @@ body{
     justify-content: center;
 }
 
-#content #buttons button:nth-child(3){
+#content #buttons button.disabled{
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+#content #buttons button:nth-child(2){
     margin-left: 30px;
 }
 
@@ -61,7 +66,6 @@ body{
 
     font-size: 19px;
     font-weight: 500;
-
     cursor: pointer;
     transition: background 200ms;
 
@@ -104,7 +108,6 @@ footer .lenght h3{
 footer .lenght span{
     background-color: #eb144c;
     border-radius: 50%;
-
     cursor: pointer;
     transition: background 100ms;
 
@@ -132,7 +135,6 @@ footer .lenght input{
     outline: none;
     border: none;
     border-radius: 3px;
-
     text-align: center;
     font-weight: 700;
 }

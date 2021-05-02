@@ -15,7 +15,7 @@
             <h3  class="session">Sessão</h3>
             <div class="timer">
                 <div class="minutes">
-                    <p>00</p>
+                    <p>25</p>
                 </div>
                 <div class="two-points">
                     <p>:</p>
@@ -25,7 +25,6 @@
                 </div>
             </div>
             <div id="buttons">
-                <button class="pause" style="display: none;">Pausar</button>
                 <button class="start">Começar</button>
                 <button class="reset">Redefinir</button>
             </div>
@@ -37,7 +36,7 @@
                     <h3>Duração da Sessão</h3>
                     <div class="adjust-timer">
                         <span onclick="addSessionValue()"><i class="fas fa-arrow-up" style="color: #fff;"></i></span>
-                        <input type="text" id="sessionValue" value="25" onkeypress="sessionValue()">
+                        <input type="text" id="sessionValue" value="25" onkeypress="AddSessionValuePerKey()">
                         <span onclick="decreaseSessionValue()"><i class="fas fa-arrow-down" style="color: #fff;"></i></span>
                     </div>
                 </div>
@@ -45,7 +44,7 @@
                     <h3>Duração do Intervalo</h3>
                     <div class="adjust-timer">
                         <span onclick="addBreakValue()"><i class="fas fa-arrow-up" style="color: #fff;"></i></span>
-                        <input type="text" id="breakValue" value="5" onkeypress="breakValue()">
+                        <input type="text" id="breakValue" value="5" onkeypress="AddBreakValuePerKey()">
                         <span onclick="decreaseBreakValue()"><i class="fas fa-arrow-down" style="color: #fff;"></i></span>
                     </div>
                 </div>
